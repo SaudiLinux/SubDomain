@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/SayerLinux/sub/pkg/scanner"
-	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
