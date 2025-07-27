@@ -21,8 +21,8 @@ type Config struct {
 	Verbose    bool
 }
 
-// Result represents a scan result
-type Result struct {
+// ScanResult represents a scan result
+type ScanResult struct {
 	Subdomain string
 	IP        string
 	Found     bool
@@ -31,9 +31,9 @@ type Result struct {
 // Scanner represents the subdomain scanner
 type Scanner struct {
 	config     Config
-	results    []Result
+	results    []ScanResult
 	wordlist   []string
-	resultChan chan Result
+	resultChan chan ScanResult
 	wg         sync.WaitGroup
 	mutex      sync.Mutex
 }
@@ -42,8 +42,8 @@ type Scanner struct {
 func NewScanner(config Config) *Scanner {
 	return &Scanner{
 		config:     config,
-		results:    []Result{},
-		resultChan: make(chan Result),
+		results:    []ScanResult{},
+		resultChan: make(chan ScanResult),
 	}
 }
 
@@ -134,7 +134,7 @@ func (s *Scanner) worker(jobs <-chan string) {
 func (s *Scanner) checkSubdomain(subdomain string) {
 	defer s.wg.Done()
 
-	result := Result{
+	result := ScanResult{
 		Subdomain: subdomain,
 		Found:     false,
 	}
